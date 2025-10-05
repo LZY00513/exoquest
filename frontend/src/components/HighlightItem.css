@@ -1,0 +1,49 @@
+/* HighlightItem Styles */
+.highlight-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  margin-bottom: 16px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.highlight-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.highlight-icon {
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.highlight-content {
+  flex: 1;
+}
+
+.highlight-title {
+  color: white !important;
+  margin-bottom: 8px !important;
+  font-weight: 600 !important;
+}
+
+.highlight-description {
+  color: rgba(255, 255, 255, 0.7) !important;
+  margin: 0 !important;
+  line-height: 1.6 !important;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .highlight-item {
+    flex-direction: column;
+    text-align: center;
+    padding: 16px;
+  }
+}

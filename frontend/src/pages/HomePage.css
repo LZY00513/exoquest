@@ -1,0 +1,642 @@
+/* HomePage Styles - NASA Mission Control Inspired */
+
+.homepage {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0b0c2a 0%, #1a1a40 50%, #2d1b69 100%);
+  color: white;
+  overflow-x: hidden;
+}
+
+/* Navigation Bar */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(11, 12, 42, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-icon {
+  font-size: 28px;
+  color: #1890ff;
+  animation: pulse 2s infinite;
+}
+
+.brand-title {
+  color: white !important;
+  margin: 0 !important;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.8) !important;
+  border: none !important;
+  background: transparent !important;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #1890ff !important;
+  background: rgba(24, 144, 255, 0.1) !important;
+}
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 0 24px;
+}
+
+.hero-title {
+  font-size: clamp(3rem, 8vw, 6rem) !important;
+  font-weight: 700 !important;
+  color: white !important;
+  margin-bottom: 24px !important;
+  line-height: 1.1 !important;
+  background: linear-gradient(135deg, #ffffff 0%, #1890ff 50%, #722ed1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 30px rgba(24, 144, 255, 0.3);
+}
+
+.hero-subtitle {
+  font-size: clamp(1.2rem, 3vw, 1.8rem) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  margin-bottom: 48px !important;
+  line-height: 1.6 !important;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-buttons {
+  margin-top: 48px;
+}
+
+.cta-button {
+  height: 56px !important;
+  padding: 0 32px !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  border-radius: 28px !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+}
+
+.explore-button {
+  background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%) !important;
+  border: none !important;
+  color: white !important;
+}
+
+.explore-button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 32px rgba(24, 144, 255, 0.4) !important;
+}
+
+.research-button {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+  color: white !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.research-button:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Hero Background */
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, #ffffff, transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+    radial-gradient(1px 1px at 90px 40px, #ffffff, transparent),
+    radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+    radial-gradient(2px 2px at 160px 30px, #ffffff, transparent);
+  background-repeat: repeat;
+  background-size: 200px 100px;
+  animation: sparkle 20s linear infinite;
+}
+
+.nebula {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at center, rgba(114, 46, 209, 0.3) 0%, transparent 70%),
+              radial-gradient(ellipse at 30% 20%, rgba(24, 144, 255, 0.2) 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 80%, rgba(82, 196, 26, 0.1) 0%, transparent 50%);
+  animation: nebulaFloat 15s ease-in-out infinite;
+}
+
+.challenge-badge {
+  position: absolute;
+  bottom: 32px;
+  right: 32px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 8px 16px;
+  z-index: 2;
+}
+
+.badge-text {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+}
+
+/* Sections */
+.features-section,
+.highlights-section {
+  padding: 120px 0;
+  position: relative;
+}
+
+.section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section-title {
+  font-size: clamp(2rem, 5vw, 3rem) !important;
+  font-weight: 700 !important;
+  color: white !important;
+  text-align: center !important;
+  margin-bottom: 16px !important;
+  background: linear-gradient(135deg, #ffffff 0%, #1890ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-subtitle {
+  font-size: 1.2rem !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  text-align: center !important;
+  margin-bottom: 64px !important;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Feature Cards */
+.feature-cards {
+  margin-top: 48px;
+}
+
+.feature-card {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 16px !important;
+  padding: 32px !important;
+  text-align: center !important;
+  backdrop-filter: blur(10px) !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer !important;
+  height: 100% !important;
+}
+
+.feature-card:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  transform: translateY(-8px) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
+}
+
+.feature-icon {
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.feature-title {
+  color: white !important;
+  margin-bottom: 16px !important;
+  font-weight: 600 !important;
+}
+
+.feature-description {
+  color: rgba(255, 255, 255, 0.7) !important;
+  margin: 0 !important;
+  line-height: 1.6 !important;
+}
+
+/* Highlights Section */
+.highlights-visual {
+  position: relative;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.visual-container {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+.planet-orbit {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  animation: orbit 20s linear infinite;
+}
+
+.planet {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(135deg, #1890ff, #722ed1);
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(24, 144, 255, 0.6);
+}
+
+.orbit-path {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+}
+
+.light-curve {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 250px;
+  height: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  background: linear-gradient(90deg, transparent 0%, rgba(24, 144, 255, 0.1) 50%, transparent 100%);
+}
+
+.curve-point {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #1890ff;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 0 10px rgba(24, 144, 255, 0.8);
+  animation: curvePulse 3s ease-in-out infinite;
+}
+
+.curve-point:nth-child(1) { left: 20%; animation-delay: 0s; }
+.curve-point:nth-child(2) { left: 40%; animation-delay: 0.5s; }
+.curve-point:nth-child(3) { left: 60%; animation-delay: 1s; }
+.curve-point:nth-child(4) { left: 80%; animation-delay: 1.5s; }
+
+.highlights-list {
+  margin-top: 32px;
+}
+
+.highlight-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  margin-bottom: 16px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.highlight-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.highlight-icon {
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.highlight-content {
+  flex: 1;
+}
+
+.highlight-title {
+  color: white !important;
+  margin-bottom: 8px !important;
+  font-weight: 600 !important;
+}
+
+.highlight-description {
+  color: rgba(255, 255, 255, 0.7) !important;
+  margin: 0 !important;
+  line-height: 1.6 !important;
+}
+
+/* Footer */
+.homepage-footer {
+  background: linear-gradient(135deg, #0b0c2a 0%, #1a1a40 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 48px 0 24px;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.footer-icon {
+  font-size: 24px;
+  color: #1890ff;
+}
+
+.footer-title {
+  font-size: 1.2rem !important;
+  font-weight: 600 !important;
+  color: white !important;
+}
+
+.footer-text {
+  color: rgba(255, 255, 255, 0.7) !important;
+  margin-bottom: 16px !important;
+  display: block;
+  font-size: 0.9rem;
+}
+
+.footer-copyright {
+  color: rgba(255, 255, 255, 0.5) !important;
+  font-size: 0.8rem;
+}
+
+.footer-link {
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-size: 0.8rem;
+}
+
+.footer-link:hover {
+  color: #1890ff !important;
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes sparkle {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-100px); }
+}
+
+@keyframes nebulaFloat {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.1) rotate(180deg); }
+}
+
+@keyframes orbit {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes curvePulse {
+  0%, 100% { opacity: 0.6; transform: translateY(-50%) scale(1); }
+  50% { opacity: 1; transform: translateY(-50%) scale(1.2); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar-content {
+    padding: 0 16px;
+  }
+  
+  .hero-content {
+    padding: 0 16px;
+  }
+  
+  .section-container {
+    padding: 0 16px;
+  }
+  
+  .hero-buttons .ant-space {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .cta-button {
+    width: 100% !important;
+  }
+  
+  .challenge-badge {
+    bottom: 16px;
+    right: 16px;
+  }
+  
+  .visual-container {
+    width: 250px;
+    height: 250px;
+  }
+  
+  .highlight-item {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .features-section,
+  .highlights-section {
+    padding: 80px 0;
+  }
+  
+  .feature-card {
+    padding: 24px !important;
+  }
+  
+  .highlight-item {
+    padding: 16px;
+  }
+}
+
+/* ==================================== */
+/* 4. Custom Cursor Styles (NASA/AI Reticle) */
+/* ==================================== */
+
+/*
+  1. Define Cursor Animation Keyframes 
+*/
+@keyframes cursor-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.1); opacity: 1; }
+}
+
+@keyframes cursor-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 2. Hide Default Cursor and Define Custom Element */
+.homepage {
+  cursor: none; /* Hides the default browser cursor */
+}
+
+/* Base style for the custom cursor element */
+.custom-cursor {
+  --cursor-size: 24px; /* Define size using a CSS variable */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--cursor-size);
+  height: var(--cursor-size);
+  pointer-events: none; /* CRITICAL: Allows clicks to pass through */
+  z-index: 9999;
+  
+  /* Centers the fixed element on the mouse coordinates */
+  transform: translate(calc(var(--cursor-size) / -2), calc(var(--cursor-size) / -2));
+  
+  /* Initial Visuals: Blue Ring/Reticle */
+  border: 1px solid #1890ff; /* Ant Design Blue */
+  border-radius: 50%;
+  
+  /* Optimized transitions - only essential properties */
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+  
+  /* Initial Animation: Breathing pulse and slow rotation */
+  animation: cursor-pulse 2s ease-in-out infinite, 
+             cursor-rotate 10s linear infinite;
+  
+  /* Performance optimizations */
+  will-change: transform, background-color, border-color;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+/* 3. Inner Reticle Lines (for a true sci-fi look) */
+.custom-cursor::before,
+.custom-cursor::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #1890ff;
+  transition: background-color 0.2s ease;
+}
+
+/* Horizontal Line */
+.custom-cursor::before {
+  width: 60%;
+  height: 1px;
+}
+
+/* Vertical Line */
+.custom-cursor::after {
+  width: 1px;
+  height: 60%;
+}
+
+/* 4. Hover Feedback (Target Locked!) */
+/* When hovering over any interactive element (a, button, card, etc.) */
+.homepage a:hover .custom-cursor,
+.homepage button:hover .custom-cursor,
+.homepage .cta-button:hover .custom-cursor,
+.homepage .feature-card:hover .custom-cursor,
+.homepage .highlight-item:hover .custom-cursor {
+  /* Visual change: Scale up and fill with an active color */
+  transform: translate(calc(var(--cursor-size) / -2), calc(var(--cursor-size) / -2)) scale(1.5);
+  background-color: rgba(82, 196, 26, 0.2); /* Ant Design Green (Active/Success) */
+  border-color: #52c41a; /* Target Locked Green */
+  animation: none; /* Stop the idle pulse/rotate animation */
+}
+
+/* Add hover state class for JavaScript control */
+.custom-cursor.hover-active {
+  transform: translate(calc(var(--cursor-size) / -2), calc(var(--cursor-size) / -2)) scale(1.5);
+  background-color: rgba(82, 196, 26, 0.2);
+  border-color: #52c41a;
+  animation: none;
+}
+
+.custom-cursor.hover-active::before,
+.custom-cursor.hover-active::after {
+  background-color: #52c41a;
+}
+
+/* Change the reticle lines to the active color */
+.homepage a:hover .custom-cursor::before,
+.homepage a:hover .custom-cursor::after,
+.homepage button:hover .custom-cursor::before,
+.homepage button:hover .custom-cursor::after,
+.homepage .feature-card:hover .custom-cursor::before,
+.homepage .feature-card:hover .custom-cursor::after {
+  background-color: #52c41a; 
+}

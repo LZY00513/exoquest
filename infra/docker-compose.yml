@@ -1,0 +1,107 @@
+services:
+  # 前端服务
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_BASE_URL=http://localhost:8000/api
+    volumes:
+      - ../frontend:/app
+      - /app/node_modules
+    depends_on:
+      - api
+    networks:
+      - exoquest-network
+
+  # 后端API服务
+  api:
+    build:
+      context: ../api
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - MODEL_BASE_URL=http://localhost:9002
+      - USE_MODEL_MOCK=true
+      - MINIO_ENDPOINT=minio:9000
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+      - MINIO_BUCKET_DATASETS=datasets
+      - MINIO_BUCKET_REPORTS=reports
+      - MINIO_BUCKET_FEEDBACK=feedback
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=exoquest-jwt-secret-key
+      - CORS_ORIGINS=http://localhost:5173,http://localhost:3000
+    volumes:
+      - ../api:/app
+    depends_on:
+      - redis
+      - minio
+    networks:
+      - exoquest-network
+
+  # Redis服务
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - exoquest-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # MinIO对象存储服务
+  minio:
+    image: minio/minio:latest
+    ports:
+      - "9000:9000"  # API端口
+      - "9001:9001"  # Web控制台端口
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+    networks:
+      - exoquest-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  # MinIO初始化服务
+  minio-init:
+    image: minio/mc:latest
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      sleep 10;
+      /usr/bin/mc alias set myminio http://minio:9000 minioadmin minioadmin;
+      /usr/bin/mc mb myminio/datasets --ignore-existing;
+      /usr/bin/mc mb myminio/reports --ignore-existing;
+      /usr/bin/mc mb myminio/feedback --ignore-existing;
+      /usr/bin/mc policy set public myminio/reports;
+      echo 'MinIO buckets created successfully';
+      "
+    networks:
+      - exoquest-network
+
+volumes:
+  redis_data:
+    driver: local
+  minio_data:
+    driver: local
+
+networks:
+  exoquest-network:
+    driver: bridge
