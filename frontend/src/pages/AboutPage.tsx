@@ -8,12 +8,15 @@ import {
   ExperimentOutlined,
   BulbOutlined 
 } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 
 const { Title, Paragraph, Text } = Typography;
 
 const AboutPage: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
-    <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+    <div style={{ maxWidth: '1000px', margin: '0 auto', overflow: 'auto' }}>
       <div style={{ textAlign: 'center', marginBottom: '48px' }}>
         <RocketOutlined style={{ fontSize: '64px', color: '#1890ff', marginBottom: '16px' }} />
         <Title level={1}>ExoQuest Platform</Title>
@@ -206,6 +209,7 @@ const AboutPage: React.FC = () => {
           © 2024 ExoQuest Platform. Released under the Apache 2.0 License.
         </Text>
       </div>
+      <Button type="link" onClick={() => navigate('/')}>Back to Home</Button>
     </div>
   );
 };

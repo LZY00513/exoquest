@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Row, Col, Card, Button, Space, message, Typography, Tabs, Divider, Slider, Select } from 'antd';
 import { 
   PlayCircleOutlined, 
   DownloadOutlined,
   BarChartOutlined,
   SettingOutlined,
-  ExperimentOutlined
+  ExperimentOutlined,
+  RocketOutlined,
+  GithubOutlined,
+  GlobalOutlined
 } from '@ant-design/icons';
 import UploadCard from '../components/UploadCard';
 import ResultTable from '../components/ResultTable';
@@ -15,6 +18,9 @@ import SingleDataInput from '../components/SingleDataInput';
 import ShapBar from '../components/ShapBar';
 import { apiClient } from '../lib/api';
 import type { Dataset, ExoplanetPrediction, ModelMetrics } from '../types';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import './HomePage.css';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -45,6 +51,42 @@ const ResearchPage: React.FC = () => {
   const [isLoadingFeatures, setIsLoadingFeatures] = useState(false);
   const [isLoadingPerturbation, setIsLoadingPerturbation] = useState(false);
   const [defaultExplorationResult, setDefaultExplorationResult] = useState<any>(null);
+
+  // --- START: Optimized Custom Cursor Logic ---
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const lastPositionRef = useRef({ x: 0, y: 0 });
+  const animationFrameRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      // 节流处理，避免过于频繁的更新
+      const deltaX = Math.abs(e.clientX - lastPositionRef.current.x);
+      const deltaY = Math.abs(e.clientY - lastPositionRef.current.y);
+      
+      if (deltaX > 2 || deltaY > 2) {
+        if (animationFrameRef.current) {
+          cancelAnimationFrame(animationFrameRef.current);
+        }
+        
+        animationFrameRef.current = requestAnimationFrame(() => {
+          if (cursorRef.current) {
+            cursorRef.current.style.left = `${e.clientX}px`;
+            cursorRef.current.style.top = `${e.clientY}px`;
+            lastPositionRef.current = { x: e.clientX, y: e.clientY };
+          }
+        });
+      }
+    };
+
+    document.addEventListener('mousemove', handleMouseMove, { passive: true });
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, []);
+  // --- END: Optimized Custom Cursor Logic ---
 
   // 加载特征列表和默认预测结果
   useEffect(() => {
@@ -203,63 +245,6 @@ const ResearchPage: React.FC = () => {
     }
   };
 
-  // 生成模拟批量预测数据
-  const _generateMockPredictions = (count: number = 50, datasetName?: string): ResultRow[] => {
-    const results: ResultRow[] = [];
-    
-    // 根据数据集名称生成更真实的目标名称
-    const generateTargetName = (index: number) => {
-      if (datasetName?.includes('kepler')) {
-        return `KIC-${1000000 + index}`;
-      } else if (datasetName?.includes('tess')) {
-        return `TIC-${100000 + index}`;
-      } else if (datasetName?.includes('k2')) {
-        return `EPIC-${200000 + index}`;
-      } else {
-        return `TARGET-${index + 1}`;
-      }
-    };
-    
-    // 使用种子值确保结果一致性
-    const seed = 12345; // 固定种子
-    const seededRandom = (index: number) => {
-      const x = Math.sin(seed + index) * 10000;
-      return x - Math.floor(x);
-    };
-    
-    for (let i = 0; i < count; i++) {
-      // 模拟二分类概率（0-1之间）
-      const positiveProb = 0.2 + seededRandom(i) * 0.8; // 0.2-1.0之间的值
-      const negativeProb = 1 - positiveProb;
-      
-      // 直接使用二分类结果
-      const probs = {
-        POSITIVE: positiveProb,
-        NEGATIVE: negativeProb,
-      };
-
-      results.push({
-        id: `target-${i + 1}`,
-        target_name: generateTargetName(i),
-        probs,
-        conf: Math.max(probs.POSITIVE, probs.NEGATIVE) + seededRandom(i + 10000) * 0.1,
-        version: 'v1.2.0',
-        explain: {
-          tabular: {
-            shap: [
-              ['depth_ppm', (seededRandom(i + 11000) - 0.5) * 0.4],
-              ['snr', (seededRandom(i + 12000) - 0.5) * 0.3],
-              ['period', (seededRandom(i + 13000) - 0.5) * 0.2],
-              ['duration_hr', (seededRandom(i + 14000) - 0.5) * 0.15],
-              ['teff', (seededRandom(i + 15000) - 0.5) * 0.1],
-            ],
-          },
-        },
-      });
-    }
-    
-    return results;
-  };
 
   // 生成模拟指标数据
   const generateMockMetrics = (): ModelMetrics => {
@@ -681,7 +666,7 @@ const ResearchPage: React.FC = () => {
                       tooltip={{
                         formatter: (value) => `${value?.toFixed(2)}`,
                       }}
-                      style={{ margin: '8px 0' }}
+                      style={{ marginBottom: '20px' }}
                     />
                     <Text type="secondary" style={{ fontSize: '12px' }}>
                       Current Threshold: {threshold.toFixed(3)} ({threshold > 0.5 ? 'Candidate Planet' : 'Confirmed Planet'})
@@ -752,7 +737,7 @@ const ResearchPage: React.FC = () => {
                       tooltip={{
                         formatter: (value) => `${value?.toFixed(2)}`,
                       }}
-                      style={{ margin: '8px 0' }}
+                      style={{ marginBottom: '20px' }}
                     />
                     <Text type="secondary" style={{ fontSize: '12px' }}>
                       Current Threshold: {threshold.toFixed(3)} ({threshold > 0.5 ? 'Candidate Planet' : 'Confirmed Planet'})
@@ -785,7 +770,7 @@ const ResearchPage: React.FC = () => {
                       tooltip={{
                         formatter: (value) => `Top-${value}`,
                       }}
-                      style={{ margin: '8px 0' }}
+                      style={{ marginBottom: '20px' }}
                     />
                     <Text type="secondary" style={{ fontSize: '12px' }}>
                       Current Display: Top-{topK} most important features
@@ -833,7 +818,7 @@ const ResearchPage: React.FC = () => {
                       tooltip={{
                         formatter: (value) => `${value}%`,
                       }}
-                      style={{ margin: '8px 0' }}
+                      style={{ marginBottom: '20px' }}
                     />
                     <Text type="secondary" style={{ fontSize: '12px' }}>
                       Current Perturbation: {featurePerturbation}% ({featurePerturbation > 0 ? 'Increased' : featurePerturbation < 0 ? 'Decreased' : 'No change'})
@@ -1181,38 +1166,179 @@ const ResearchPage: React.FC = () => {
     },
   ];
 
-  return (
-    <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-      <div style={{ marginBottom: '24px' }}>
-        <Title level={2}>Research Mode - Advanced Analysis Tools</Title>
-        <Paragraph>
-          Advanced features designed for researchers: batch processing, threshold tuning, model training, and performance evaluation.
-        </Paragraph>
-        
-        <Space>
-          <Button 
-            icon={<DownloadOutlined />} 
-            onClick={handleExportResults}
-            disabled={predictions.length === 0}
-          >
-            Export CSV
-          </Button>
-          <Button 
-            icon={<DownloadOutlined />} 
-            onClick={handleExportPDF}
-            disabled={predictions.length === 0}
-          >
-            Export PDF Report
-          </Button>
-        </Space>
-      </div>
+  const navigate = useNavigate();
 
-      <Tabs 
-        activeKey={activeTab}
-        onChange={setActiveTab}
-        items={tabItems}
-        size="large"
+  return (
+    <div className="homepage research-page">
+      {/* Optimized Custom Cursor */}
+      <div 
+        ref={cursorRef}
+        className="custom-cursor"
       />
+      
+      {/* Navigation Bar */}
+      <motion.div 
+        className="navbar"
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        <div className="navbar-content">
+          <div className="navbar-brand">
+            <RocketOutlined className="brand-icon" />
+            <Title level={3} className="brand-title">
+              ExoQuest Platform
+            </Title>
+          </div>
+          <Space size="large">
+            <Button 
+              type="text" 
+              className="nav-link"
+              onClick={() => navigate('/')}
+            >
+              Home
+            </Button>
+            <Button 
+              type="text" 
+              className="nav-link"
+              onClick={() => navigate('/explore')}
+            >
+              Explore Mode
+            </Button>
+            <Button 
+              type="text" 
+              className="nav-link active"
+            >
+              Research Mode
+            </Button>
+            <Button 
+              type="text" 
+              className="nav-link"
+              onClick={() => navigate('/about')}
+            >
+              About
+            </Button>
+            <Button 
+              type="text" 
+              className="nav-link"
+              icon={<GithubOutlined />}
+              href="https://github.com"
+              target="_blank"
+            >
+              GitHub
+            </Button>
+          </Space>
+        </div>
+      </motion.div>
+
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="research-page-container"
+        style={{ paddingTop: '80px', minHeight: 'calc(100vh - 80px)' }}
+      >
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="research-page-header"
+          style={{ textAlign: 'center', padding: '40px 24px' }}
+        >
+          <Title level={2} className="section-title">Research Mode - Advanced Analysis Tools</Title>
+          <Paragraph className="section-subtitle">
+            Advanced features designed for researchers: batch processing, threshold tuning, model training, and performance evaluation.
+          </Paragraph>
+          
+          <Space style={{ marginTop: '24px' }}>
+            <Button 
+              icon={<DownloadOutlined />} 
+              onClick={handleExportResults}
+              disabled={predictions.length === 0}
+              className="cta-button"
+              style={{ 
+                background: 'rgba(255, 255, 255, 0.1)',
+                border: '2px solid rgba(255, 255, 255, 0.3)',
+                color: 'white',
+                backdropFilter: 'blur(10px)'
+              }}
+            >
+              Export CSV
+            </Button>
+            <Button 
+              icon={<DownloadOutlined />} 
+              onClick={handleExportPDF}
+              disabled={predictions.length === 0}
+              className="cta-button"
+              style={{ 
+                background: 'rgba(255, 255, 255, 0.1)',
+                border: '2px solid rgba(255, 255, 255, 0.3)',
+                color: 'white',
+                backdropFilter: 'blur(10px)'
+              }}
+            >
+              Export PDF Report
+            </Button>
+          </Space>
+        </motion.div>
+
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}
+        >
+          <Tabs 
+            activeKey={activeTab}
+            onChange={setActiveTab}
+            items={tabItems}
+            size="large"
+            style={{
+              background: 'rgba(255, 255, 255, 0.05)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              borderRadius: '16px',
+              padding: '24px',
+              backdropFilter: 'blur(10px)'
+            }}
+          />
+        </motion.div>
+      </motion.div>
+
+      {/* Footer */}
+      <motion.footer 
+        className="homepage-footer"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+      >
+        <div className="footer-content">
+          <div className="footer-brand">
+            <GlobalOutlined className="footer-icon" />
+            <Text className="footer-title">ExoQuest Platform</Text>
+          </div>
+          <div className="footer-info">
+            <Text className="footer-text">
+              Research Mode - Advanced Exoplanet Analysis Tools
+            </Text>
+            <Space>
+              <Text className="footer-copyright">
+                © 2025 ExoQuest Platform. All rights reserved.
+              </Text>
+              <Button 
+                type="link" 
+                size="small"
+                icon={<GithubOutlined />}
+                className="footer-link"
+                href="https://github.com"
+                target="_blank"
+              >
+                GitHub
+              </Button>
+            </Space>
+          </div>
+        </div>
+      </motion.footer>
     </div>
   );
 };

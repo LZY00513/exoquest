@@ -4,12 +4,12 @@
   margin: 0;
   padding: 0;
   text-align: left;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .ant-layout {
   height: 100vh;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .ant-layout-header {
@@ -21,7 +21,7 @@
   padding: 0;
   background: transparent;
   height: calc(100vh - 64px);
-  overflow: hidden;
+  overflow: auto;
 }
 
 .ant-layout-footer {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Steps, Card, Button, Space, message, Row, Col, Typography, Alert } from 'antd';
 import { 
   UploadOutlined, 
@@ -6,7 +6,10 @@ import {
   SearchOutlined, 
   BulbOutlined, 
   EditOutlined,
-  ShareAltOutlined 
+  ShareAltOutlined,
+  RocketOutlined,
+  GithubOutlined,
+  GlobalOutlined
 } from '@ant-design/icons';
 import UploadCard from '../components/UploadCard';
 import LightCurveViewer from '../components/LightCurveViewer';
@@ -15,6 +18,9 @@ import ShapBar from '../components/ShapBar';
 import ThresholdDial from '../components/ThresholdDial';
 import { apiClient } from '../lib/api';
 import type { Dataset, ExoplanetPrediction } from '../types';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import './HomePage.css';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -25,6 +31,43 @@ const ExplorePage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   // const [selectedTarget, setSelectedTarget] = useState<any>(null); // 暂时未使用
   const [threshold, setThreshold] = useState(0.5);
+  const navigate = useNavigate();
+
+  // --- START: Optimized Custom Cursor Logic ---
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const lastPositionRef = useRef({ x: 0, y: 0 });
+  const animationFrameRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      // 节流处理，避免过于频繁的更新
+      const deltaX = Math.abs(e.clientX - lastPositionRef.current.x);
+      const deltaY = Math.abs(e.clientY - lastPositionRef.current.y);
+      
+      if (deltaX > 2 || deltaY > 2) {
+        if (animationFrameRef.current) {
+          cancelAnimationFrame(animationFrameRef.current);
+        }
+        
+        animationFrameRef.current = requestAnimationFrame(() => {
+          if (cursorRef.current) {
+            cursorRef.current.style.left = `${e.clientX}px`;
+            cursorRef.current.style.top = `${e.clientY}px`;
+            lastPositionRef.current = { x: e.clientX, y: e.clientY };
+          }
+        });
+      }
+    };
+
+    document.addEventListener('mousemove', handleMouseMove, { passive: true });
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, []);
+  // --- END: Optimized Custom Cursor Logic ---
 
   const steps = [
     {
@@ -407,40 +450,197 @@ const ExplorePage: React.FC = () => {
   };
 
   return (
-    <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-      <div style={{ marginBottom: '24px' }}>
-        <Title level={2}>Explore Mode - Exoplanet Detection Guide</Title>
-        <Paragraph>
-          Experience the complete process of exoplanet detection in 5 simple steps. Suitable for beginners and educational purposes.
-        </Paragraph>
-      </div>
-
-      <Steps
-        current={currentStep}
-        items={steps}
-        style={{ marginBottom: '32px' }}
-        size="small"
+    <div className="homepage explore-page">
+      {/* Optimized Custom Cursor */}
+      <div 
+        ref={cursorRef}
+        className="custom-cursor"
       />
-
-      <div style={{ minHeight: '500px' }}>
-        {renderStepContent()}
-      </div>
-
-      {/* Navigation Buttons */}
-      <div style={{ marginTop: '24px', textAlign: 'center' }}>
-        <Space>
-          {currentStep > 0 && (
-            <Button onClick={() => setCurrentStep(currentStep - 1)}>
-              Previous
+      
+      {/* Navigation Bar */}
+      <motion.div 
+        className="navbar"
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        <div className="navbar-content">
+          <div className="navbar-brand">
+            <RocketOutlined className="brand-icon" />
+            <Title level={3} className="brand-title">
+              ExoQuest Platform
+            </Title>
+          </div>
+          <Space size="large">
+            <Button 
+              type="text" 
+              className="nav-link"
+              onClick={() => navigate('/')}
+            >
+              Home
             </Button>
-          )}
-          {currentStep === 4 && (
-            <Button type="primary" onClick={() => setCurrentStep(0)}>
-              Restart
+            <Button 
+              type="text" 
+              className="nav-link active"
+            >
+              Explore Mode
             </Button>
-          )}
-        </Space>
-      </div>
+            <Button 
+              type="text" 
+              className="nav-link"
+              onClick={() => navigate('/research')}
+            >
+              Research Mode
+            </Button>
+            <Button 
+              type="text" 
+              className="nav-link"
+              onClick={() => navigate('/about')}
+            >
+              About
+            </Button>
+            <Button 
+              type="text" 
+              className="nav-link"
+              icon={<GithubOutlined />}
+              href="https://github.com"
+              target="_blank"
+            >
+              GitHub
+            </Button>
+          </Space>
+        </div>
+      </motion.div>
+
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="explore-page-container"
+        style={{ paddingTop: '80px', minHeight: 'calc(100vh - 80px)' }}
+      >
+        <motion.section 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="explore-page-header"
+          style={{ textAlign: 'center', padding: '40px 24px' }}
+        >
+          <Title level={2} className="section-title">Explore Mode - Exoplanet Detection Guide</Title>
+          <Paragraph className="section-subtitle">
+            Experience the complete process of exoplanet detection in 5 simple steps. Suitable for beginners and educational purposes.
+          </Paragraph>
+        </motion.section>
+
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}
+        >
+          <Steps
+            current={currentStep}
+            items={steps}
+            style={{ marginBottom: '32px' }}
+            size="small"
+          />
+
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="explore-page-content"
+            style={{ 
+              background: 'rgba(255, 255, 255, 0.05)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              borderRadius: '16px',
+              padding: '32px',
+              backdropFilter: 'blur(10px)',
+              marginBottom: '32px'
+            }}
+          >
+            {renderStepContent()}
+          </motion.div>
+
+          {/* Navigation Buttons */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="explore-page-navigation"
+            style={{ textAlign: 'center', marginBottom: '40px' }}
+          >
+            <Space>
+              {currentStep > 0 && (
+                <Button 
+                  onClick={() => setCurrentStep(currentStep - 1)}
+                  className="cta-button"
+                  style={{ 
+                    background: 'rgba(255, 255, 255, 0.1)',
+                    border: '2px solid rgba(255, 255, 255, 0.3)',
+                    color: 'white',
+                    backdropFilter: 'blur(10px)'
+                  }}
+                >
+                  Previous
+                </Button>
+              )}
+              {currentStep === 4 && (
+                <Button 
+                  type="primary" 
+                  onClick={() => setCurrentStep(0)}
+                  className="cta-button explore-button"
+                >
+                  Restart
+                </Button>
+              )}
+              <Button 
+                type="link" 
+                onClick={() => navigate('/')}
+                style={{ color: 'rgba(255, 255, 255, 0.8)' }}
+              >
+                Back to Home
+              </Button>
+            </Space>
+          </motion.div>
+        </motion.div>
+      </motion.div>
+
+      {/* Footer */}
+      <motion.footer 
+        className="homepage-footer"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+      >
+        <div className="footer-content">
+          <div className="footer-brand">
+            <GlobalOutlined className="footer-icon" />
+            <Text className="footer-title">ExoQuest Platform</Text>
+          </div>
+          <div className="footer-info">
+            <Text className="footer-text">
+              Explore Mode - Interactive Exoplanet Detection Guide
+            </Text>
+            <Space>
+              <Text className="footer-copyright">
+                © 2025 ExoQuest Platform. All rights reserved.
+              </Text>
+              <Button 
+                type="link" 
+                size="small"
+                icon={<GithubOutlined />}
+                className="footer-link"
+                href="https://github.com"
+                target="_blank"
+              >
+                GitHub
+              </Button>
+            </Space>
+          </div>
+        </div>
+      </motion.footer>
     </div>
   );
 };

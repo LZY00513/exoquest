@@ -5,7 +5,7 @@
   height: 100vh;
   background: linear-gradient(135deg, #0b0c2a 0%, #1a1a40 50%, #2d1b69 100%);
   color: white;
-  overflow: hidden;
+  overflow: auto;
   position: relative;
 }
 
@@ -617,17 +617,325 @@
 /* 4. Custom Cursor Styles (NASA/AI Reticle) */
 /* ==================================== */
 
-/*
-  1. Define Cursor Animation Keyframes 
-*/
-@keyframes cursor-pulse {
-  0%, 100% { transform: scale(1); opacity: 0.9; }
-  50% { transform: scale(1.1); opacity: 1; }
+/* Active navigation link styles */
+.nav-link.active {
+  color: #1890ff !important;
+  background: rgba(24, 144, 255, 0.1) !important;
 }
 
-@keyframes cursor-rotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+/* Explore and Research page specific styles */
+.explore-page,
+.research-page {
+  background: linear-gradient(135deg, #0b0c2a 0%, #1a1a40 50%, #2d1b69 100%);
+  color: white;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Enhanced contrast for better readability */
+.explore-page .ant-typography,
+.research-page .ant-typography {
+  color: #ffffff !important;
+}
+
+.explore-page .ant-typography-caption,
+.research-page .ant-typography-caption {
+  color: #e6f7ff !important;
+}
+
+.explore-page .ant-typography-secondary,
+.research-page .ant-typography-secondary {
+  color: #d9d9d9 !important;
+}
+
+.explore-page .ant-steps,
+.research-page .ant-steps {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.explore-page .ant-steps-item-process .ant-steps-item-icon,
+.research-page .ant-steps-item-process .ant-steps-item-icon {
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+
+.explore-page .ant-steps-item-finish .ant-steps-item-icon,
+.research-page .ant-steps-item-finish .ant-steps-item-icon {
+  background-color: #52c41a;
+  border-color: #52c41a;
+}
+
+.explore-page .ant-card,
+.research-page .ant-card {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(10px) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+}
+
+.explore-page .ant-card:hover,
+.research-page .ant-card:hover {
+  background: rgba(255, 255, 255, 0.18) !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+  transform: translateY(-2px);
+  transition: all 0.3s ease !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
+}
+
+.explore-page .ant-button,
+.research-page .ant-button {
+  transition: all 0.3s ease !important;
+}
+
+.explore-page .ant-button:hover,
+.research-page .ant-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.explore-page .ant-tabs,
+.research-page .ant-tabs {
+  color: white;
+}
+
+.explore-page .ant-tabs-tab,
+.research-page .ant-tabs-tab {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.explore-page .ant-tabs-tab:hover,
+.research-page .ant-tabs-tab:hover {
+  color: #1890ff !important;
+}
+
+.explore-page .ant-tabs-tab-active .ant-tabs-tab-btn,
+.research-page .ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #1890ff !important;
+}
+
+.explore-page .ant-tabs-ink-bar,
+.research-page .ant-tabs-ink-bar {
+  background: #1890ff;
+}
+
+.explore-page .ant-alert,
+.research-page .ant-alert {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.explore-page .ant-alert-info,
+.research-page .ant-alert-info {
+  background: rgba(24, 144, 255, 0.2);
+  border-color: rgba(24, 144, 255, 0.5);
+  color: #ffffff !important;
+}
+
+.explore-page .ant-alert-success,
+.research-page .ant-alert-success {
+  background: rgba(82, 196, 26, 0.2);
+  border-color: rgba(82, 196, 26, 0.5);
+  color: #ffffff !important;
+}
+
+.explore-page .ant-slider,
+.research-page .ant-slider {
+  margin: 16px 0;
+}
+
+.explore-page .ant-slider-track,
+.research-page .ant-slider-track {
+  background: linear-gradient(90deg, #1890ff, #52c41a);
+}
+
+.explore-page .ant-slider-handle,
+.research-page .ant-slider-handle {
+  border-color: #1890ff;
+  background: #1890ff;
+}
+
+.explore-page .ant-select,
+.research-page .ant-select {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  color: white;
+}
+
+.explore-page .ant-select-selector,
+.research-page .ant-select-selector {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: white !important;
+}
+
+.explore-page .ant-select-selector:hover,
+.research-page .ant-select-selector:hover {
+  border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.explore-page .ant-table,
+.research-page .ant-table {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.explore-page .ant-table-thead > tr > th,
+.research-page .ant-table-thead > tr > th {
+  background: rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.explore-page .ant-table-tbody > tr > td,
+.research-page .ant-table-tbody > tr > td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.explore-page .ant-table-tbody > tr:hover > td,
+.research-page .ant-table-tbody > tr:hover > td {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Enhanced text contrast for better readability */
+.explore-page .ant-typography-title,
+.research-page .ant-typography-title {
+  color: #ffffff !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.explore-page .ant-typography-paragraph,
+.research-page .ant-typography-paragraph {
+  color: #f0f0f0 !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.explore-page .ant-steps-item-title,
+.research-page .ant-steps-item-title {
+  color: #ffffff !important;
+  font-weight: 500;
+}
+
+.explore-page .ant-steps-item-description,
+.research-page .ant-steps-item-description {
+  color: #e6f7ff !important;
+}
+
+.explore-page .ant-card-head-title,
+.research-page .ant-card-head-title {
+  color: #ffffff !important;
+  font-weight: 600;
+}
+
+.explore-page .ant-card-body,
+.research-page .ant-card-body {
+  color: #f0f0f0 !important;
+}
+
+/* Enhanced button contrast */
+.explore-page .ant-btn-primary,
+.research-page .ant-btn-primary {
+  background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%) !important;
+  border-color: #1890ff !important;
+  box-shadow: 0 4px 16px rgba(24, 144, 255, 0.4) !important;
+}
+
+.explore-page .ant-btn-primary:hover,
+.research-page .ant-btn-primary:hover {
+  background: linear-gradient(135deg, #40a9ff 0%, #1890ff 100%) !important;
+  border-color: #40a9ff !important;
+  box-shadow: 0 6px 20px rgba(24, 144, 255, 0.6) !important;
+}
+
+.explore-page .ant-btn-default,
+.research-page .ant-btn-default {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  color: #ffffff !important;
+}
+
+.explore-page .ant-btn-default:hover,
+.research-page .ant-btn-default:hover {
+  background: rgba(255, 255, 255, 0.18) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  color: #ffffff !important;
+}
+
+/* Enhanced upload area contrast */
+.explore-page .ant-upload-dragger,
+.research-page .ant-upload-dragger {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 2px dashed rgba(255, 255, 255, 0.3) !important;
+  border-radius: 8px !important;
+}
+
+.explore-page .ant-upload-dragger:hover,
+.research-page .ant-upload-dragger:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.explore-page .ant-upload-text,
+.research-page .ant-upload-text {
+  color: #ffffff !important;
+  font-weight: 500;
+}
+
+.explore-page .ant-upload-hint,
+.research-page .ant-upload-hint {
+  color: #e6f7ff !important;
+}
+
+/* Enhanced form elements */
+.explore-page .ant-input,
+.research-page .ant-input {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+}
+
+.explore-page .ant-input:hover,
+.research-page .ant-input:hover {
+  border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.explore-page .ant-input:focus,
+.research-page .ant-input:focus {
+  border-color: #1890ff !important;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2) !important;
+}
+
+.explore-page .ant-input::placeholder,
+.research-page .ant-input::placeholder {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/*
+  1. Optimized Cursor Animation Keyframes 
+*/
+@keyframes cursor-pulse {
+  0%, 100% { 
+    transform: translate3d(calc(var(--cursor-size) / -2), calc(var(--cursor-size) / -2), 0) scale(1);
+    opacity: 0.9; 
+  }
+  50% { 
+    transform: translate3d(calc(var(--cursor-size) / -2), calc(var(--cursor-size) / -2), 0) scale(1.05);
+    opacity: 1; 
+  }
 }
 
 /* 2. Hide Default Cursor and Define Custom Element */
@@ -635,38 +943,40 @@
   cursor: none; /* Hides the default browser cursor */
 }
 
-/* Base style for the custom cursor element */
+/* Optimized custom cursor element */
 .custom-cursor {
-  --cursor-size: 24px; /* Define size using a CSS variable */
+  --cursor-size: 24px;
   position: fixed;
   top: 0;
   left: 0;
   width: var(--cursor-size);
   height: var(--cursor-size);
-  pointer-events: none; /* CRITICAL: Allows clicks to pass through */
+  pointer-events: none;
   z-index: 9999;
   
   /* Centers the fixed element on the mouse coordinates */
   transform: translate(calc(var(--cursor-size) / -2), calc(var(--cursor-size) / -2));
   
   /* Initial Visuals: Blue Ring/Reticle */
-  border: 1px solid #1890ff; /* Ant Design Blue */
+  border: 1px solid #1890ff;
   border-radius: 50%;
   
-  /* Optimized transitions - only essential properties */
-  transition: background-color 0.15s ease, border-color 0.15s ease;
-  
-  /* Initial Animation: Breathing pulse and slow rotation */
-  animation: cursor-pulse 2s ease-in-out infinite, 
-             cursor-rotate 10s linear infinite;
+  /* Reduced animation complexity for better performance */
+  animation: cursor-pulse 3s ease-in-out infinite;
   
   /* Performance optimizations */
-  will-change: transform, background-color, border-color;
+  will-change: left, top;
   backface-visibility: hidden;
   transform-style: preserve-3d;
+  
+  /* Hardware acceleration */
+  transform: translate3d(calc(var(--cursor-size) / -2), calc(var(--cursor-size) / -2), 0);
+  
+  /* Reduce repaints */
+  contain: layout style paint;
 }
 
-/* 3. Inner Reticle Lines (for a true sci-fi look) */
+/* Optimized Inner Reticle Lines */
 .custom-cursor::before,
 .custom-cursor::after {
   content: '';
@@ -675,7 +985,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #1890ff;
-  transition: background-color 0.2s ease;
+  pointer-events: none;
 }
 
 /* Horizontal Line */
@@ -690,23 +1000,20 @@
   height: 60%;
 }
 
-/* 4. Hover Feedback (Target Locked!) */
-/* When hovering over any interactive element (a, button, card, etc.) */
+/* Optimized Hover Feedback */
 .homepage a:hover .custom-cursor,
 .homepage button:hover .custom-cursor,
 .homepage .cta-button:hover .custom-cursor,
 .homepage .feature-card:hover .custom-cursor,
 .homepage .highlight-item:hover .custom-cursor {
-  /* Visual change: Scale up and fill with an active color */
-  transform: translate(calc(var(--cursor-size) / -2), calc(var(--cursor-size) / -2)) scale(1.5);
-  background-color: rgba(82, 196, 26, 0.2); /* Ant Design Green (Active/Success) */
-  border-color: #52c41a; /* Target Locked Green */
-  animation: none; /* Stop the idle pulse/rotate animation */
+  transform: translate3d(calc(var(--cursor-size) / -2), calc(var(--cursor-size) / -2), 0) scale(1.5);
+  background-color: rgba(82, 196, 26, 0.2);
+  border-color: #52c41a;
+  animation: none;
 }
 
-/* Add hover state class for JavaScript control */
 .custom-cursor.hover-active {
-  transform: translate(calc(var(--cursor-size) / -2), calc(var(--cursor-size) / -2)) scale(1.5);
+  transform: translate3d(calc(var(--cursor-size) / -2), calc(var(--cursor-size) / -2), 0) scale(1.5);
   background-color: rgba(82, 196, 26, 0.2);
   border-color: #52c41a;
   animation: none;
@@ -717,12 +1024,11 @@
   background-color: #52c41a;
 }
 
-/* Change the reticle lines to the active color */
 .homepage a:hover .custom-cursor::before,
 .homepage a:hover .custom-cursor::after,
 .homepage button:hover .custom-cursor::before,
 .homepage button:hover .custom-cursor::after,
 .homepage .feature-card:hover .custom-cursor::before,
 .homepage .feature-card:hover .custom-cursor::after {
-  background-color: #52c41a; 
+  background-color: #52c41a;
 }
