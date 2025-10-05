@@ -1,10 +1,12 @@
 /* HomePage Styles - NASA Mission Control Inspired */
 
 .homepage {
-  min-height: 100vh;
+  width: 100vw;
+  height: 100vh;
   background: linear-gradient(135deg, #0b0c2a 0%, #1a1a40 50%, #2d1b69 100%);
   color: white;
-  overflow-x: hidden;
+  overflow: hidden;
+  position: relative;
 }
 
 /* Navigation Bar */
@@ -62,10 +64,42 @@
   background: rgba(24, 144, 255, 0.1) !important;
 }
 
+/* Main Content Layout */
+.main-content {
+  display: flex;
+  height: calc(100vh - 64px);
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Left Panel - Hero Section */
+.left-panel {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Right Panel - Features and Highlights */
+.right-panel {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
 /* Hero Section */
 .hero-section {
-  position: relative;
-  min-height: 100vh;
+  position: absolute;
+  top: 64px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 64px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -181,15 +215,15 @@
 }
 
 .challenge-badge {
-  position: absolute;
-  bottom: 32px;
-  right: 32px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 20px;
   padding: 8px 16px;
-  z-index: 2;
+  z-index: 1000;
 }
 
 .badge-text {
@@ -201,22 +235,62 @@
 /* Sections */
 .features-section,
 .highlights-section {
-  padding: 120px 0;
-  position: relative;
+  margin-bottom: 40px;
 }
 
 .section-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Horizontal Feature Cards */
+.feature-cards-horizontal {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.feature-card-horizontal {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 12px !important;
+  padding: 20px !important;
+  backdrop-filter: blur(10px) !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer !important;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.feature-card-horizontal:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  transform: translateX(8px) !important;
+}
+
+.feature-card-horizontal .feature-icon {
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.feature-card-horizontal .feature-title {
+  margin-bottom: 4px !important;
+}
+
+.feature-card-horizontal .feature-description {
+  margin: 0 !important;
+  font-size: 0.9rem;
 }
 
 .section-title {
-  font-size: clamp(2rem, 5vw, 3rem) !important;
+  font-size: clamp(1.5rem, 3vw, 2rem) !important;
   font-weight: 700 !important;
   color: white !important;
-  text-align: center !important;
-  margin-bottom: 16px !important;
+  text-align: left !important;
+  margin-bottom: 8px !important;
   background: linear-gradient(135deg, #ffffff 0%, #1890ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -224,13 +298,13 @@
 }
 
 .section-subtitle {
-  font-size: 1.2rem !important;
+  font-size: 1rem !important;
   color: rgba(255, 255, 255, 0.7) !important;
-  text-align: center !important;
-  margin-bottom: 64px !important;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  text-align: left !important;
+  margin-bottom: 24px !important;
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 /* Feature Cards */
@@ -395,9 +469,14 @@
 
 /* Footer */
 .homepage-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
   background: linear-gradient(135deg, #0b0c2a 0%, #1a1a40 100%);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 48px 0 24px;
+  padding: 12px 0;
+  z-index: 999;
 }
 
 .footer-content {
@@ -405,14 +484,16 @@
   margin: 0 auto;
   padding: 0 24px;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .footer-brand {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 12px;
-  margin-bottom: 24px;
+  margin: 0;
 }
 
 .footer-icon {
@@ -421,16 +502,21 @@
 }
 
 .footer-title {
-  font-size: 1.2rem !important;
+  font-size: 1rem !important;
   font-weight: 600 !important;
   color: white !important;
 }
 
+.footer-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
 .footer-text {
   color: rgba(255, 255, 255, 0.7) !important;
-  margin-bottom: 16px !important;
-  display: block;
-  font-size: 0.9rem;
+  margin: 0 !important;
+  font-size: 0.8rem;
 }
 
 .footer-copyright {

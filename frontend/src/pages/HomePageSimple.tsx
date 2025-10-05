@@ -32,21 +32,21 @@ const HomePageSimple: React.FC = () => {
             onClick={() => navigate('/explore')}
             style={{ minWidth: '200px' }}
           >
-            🚀 Start Exploration
+             Start Exploration
           </Button>
           <Button 
             size="large"
             onClick={() => navigate('/research')}
             style={{ minWidth: '200px' }}
           >
-            🔬 Advanced Research
+             Advanced Research
           </Button>
           <Button 
             size="large"
             onClick={() => navigate('/about')}
             style={{ minWidth: '200px' }}
           >
-            ℹ️ About
+             About
           </Button>
         </div>
       </div>

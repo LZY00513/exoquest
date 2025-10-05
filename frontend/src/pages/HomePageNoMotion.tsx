@@ -1,10 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   Button, 
   Typography, 
-  Row, 
-  Col, 
   Space
 } from 'antd';
 import { 
@@ -28,7 +26,7 @@ const HomePageNoMotion: React.FC = () => {
 
   // --- START: Custom Cursor Logic ---
   const cursorRef = useRef<HTMLDivElement>(null);
-  const animationFrameRef = useRef<number>();
+  const animationFrameRef = useRef<number | undefined>(undefined);
   const lastMousePosition = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -193,67 +191,67 @@ const HomePageNoMotion: React.FC = () => {
         </div>
       </div>
 
-      {/* Hero Section */}
-      <section className="hero-section">
-        <div className="hero-content">
-          <div>
-            <Title level={1} className="hero-title">
-              Explore the Universe with AI
-            </Title>
+      {/* Main Content Container */}
+      <div className="main-content">
+        {/* Left Panel - Hero Section */}
+        <div className="left-panel">
+          <div className="hero-content">
+            <div>
+              <Title level={1} className="hero-title">
+                Explore the Universe with AI
+              </Title>
+            </div>
+            <div>
+              <Paragraph className="hero-subtitle">
+                AI-powered Exoplanet Detection and Research Platform
+              </Paragraph>
+            </div>
+            <div className="hero-buttons">
+              <Space size="large" direction="vertical">
+                <Button 
+                  type="primary" 
+                  size="large"
+                  icon={<RocketOutlined />}
+                  className="cta-button explore-button"
+                  onClick={() => navigate('/explore')}
+                >
+                   Start Exploration
+                </Button>
+                <Button 
+                  size="large"
+                  icon={<ExperimentOutlined />}
+                  className="cta-button research-button"
+                  onClick={() => navigate('/research')}
+                >
+                   Advanced Research
+                </Button>
+              </Space>
+            </div>
           </div>
-          <div>
-            <Paragraph className="hero-subtitle">
-              AI-powered Exoplanet Detection and Research Platform
-            </Paragraph>
-          </div>
-          <div className="hero-buttons">
-            <Space size="large">
-              <Button 
-                type="primary" 
-                size="large"
-                icon={<RocketOutlined />}
-                className="cta-button explore-button"
-                onClick={() => navigate('/explore')}
-              >
-                🚀 Start Exploration
-              </Button>
-              <Button 
-                size="large"
-                icon={<ExperimentOutlined />}
-                className="cta-button research-button"
-                onClick={() => navigate('/research')}
-              >
-                🔬 Advanced Research
-              </Button>
-            </Space>
+          <div className="hero-background">
+            <div className="stars"></div>
+            <div className="nebula"></div>
           </div>
         </div>
-        <div className="hero-background">
-          <div className="stars"></div>
-          <div className="nebula"></div>
-        </div>
-        <div className="challenge-badge">
-          <Text className="badge-text">NASA Space Apps Challenge 2025</Text>
-        </div>
-      </section>
 
-      {/* Feature Overview Section */}
-      <section className="features-section">
-        <div className="section-container">
-          <div>
-            <Title level={2} className="section-title">
-              Platform Features
-            </Title>
-            <Paragraph className="section-subtitle">
-              Three powerful modes to explore and analyze exoplanetary data
-            </Paragraph>
-          </div>
-          
-          <Row gutter={[24, 24]} className="feature-cards">
-            {featureCards.map((feature) => (
-              <Col xs={24} md={8} key={feature.title}>
+        {/* Right Panel - Features and Highlights */}
+        <div className="right-panel">
+          {/* Features Section */}
+          <div className="features-section">
+            <div>
+              <Title level={2} className="section-title">
+                Platform Features
+              </Title>
+              <Paragraph className="section-subtitle">
+                Three powerful modes to explore and analyze exoplanetary data
+              </Paragraph>
+            </div>
+            
+            <div className="feature-cards-horizontal">
+              {featureCards.map((feature) => (
                 <div
-                  className="feature-card"
+                  key={feature.title}
+                  className="feature-card-horizontal"
                   onClick={() => navigate(feature.path)}
                 >
                   <div className="feature-icon">
@@ -266,63 +264,46 @@ const HomePageNoMotion: React.FC = () => {
                     {feature.description}
                   </Paragraph>
                 </div>
-              </Col>
-            ))}
-          </Row>
-        </div>
-      </section>
+              ))}
+            </div>
+          </div>
 
-      {/* Core Highlights Section */}
-      <section className="highlights-section">
-        <div className="section-container">
-          <Row gutter={[48, 48]} align="middle">
-            <Col xs={24} lg={12}>
-              <div className="highlights-visual">
-                <div className="visual-container">
-                  <div className="planet-orbit">
-                    <div className="planet"></div>
-                    <div className="orbit-path"></div>
+          {/* Highlights Section */}
+          <div className="highlights-section">
+            <div>
+              <Title level={2} className="section-title">
+                Core Highlights
+              </Title>
+              <Paragraph className="section-subtitle">
+                Cutting-edge technology for exoplanet research
+              </Paragraph>
+            </div>
+            
+            <div className="highlights-list">
+              {highlights.map((highlight) => (
+                <div key={highlight.title} className="highlight-item">
+                  <div className="highlight-icon">
+                    {highlight.icon}
                   </div>
-                  <div className="light-curve">
-                    <div className="curve-point"></div>
-                    <div className="curve-point"></div>
-                    <div className="curve-point"></div>
-                    <div className="curve-point"></div>
+                  <div className="highlight-content">
+                    <Title level={5} className="highlight-title">
+                      {highlight.title}
+                    </Title>
+                    <Paragraph className="highlight-description">
+                      {highlight.description}
+                    </Paragraph>
                   </div>
                 </div>
-              </div>
-            </Col>
-            <Col xs={24} lg={12}>
-              <div>
-                <Title level={2} className="section-title">
-                  Core Highlights
-                </Title>
-                <Paragraph className="section-subtitle">
-                  Cutting-edge technology for exoplanet research
-                </Paragraph>
-              </div>
-              
-              <div className="highlights-list">
-                {highlights.map((highlight) => (
-                  <div key={highlight.title} className="highlight-item">
-                    <div className="highlight-icon">
-                      {highlight.icon}
-                    </div>
-                    <div className="highlight-content">
-                      <Title level={5} className="highlight-title">
-                        {highlight.title}
-                      </Title>
-                      <Paragraph className="highlight-description">
-                        {highlight.description}
-                      </Paragraph>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </Col>
-          </Row>
+              ))}
+            </div>
+          </div>
         </div>
-      </section>
+      </div>
+
+      {/* Challenge Badge */}
+      <div className="challenge-badge">
+        <Text className="badge-text">NASA Space Apps Challenge 2025</Text>
+      </div>
 
       {/* Footer */}
       <footer className="homepage-footer">

@@ -1,12 +1,15 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
   padding: 0;
   text-align: left;
+  overflow: hidden;
 }
 
 .ant-layout {
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .ant-layout-header {
@@ -15,8 +18,10 @@
 }
 
 .ant-layout-content {
-  padding: 24px;
-  background: #f0f2f5;
+  padding: 0;
+  background: transparent;
+  height: calc(100vh - 64px);
+  overflow: hidden;
 }
 
 .ant-layout-footer {

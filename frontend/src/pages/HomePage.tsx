@@ -221,7 +221,7 @@ const HomePage: React.FC = () => {
                 className="cta-button explore-button"
                 onClick={() => navigate('/explore')}
               >
-                🚀 Start Exploration
+                 Start Exploration
               </Button>
               <Button 
                 size="large"
@@ -229,7 +229,7 @@ const HomePage: React.FC = () => {
                 className="cta-button research-button"
                 onClick={() => navigate('/research')}
               >
-                🔬 Advanced Research
+                 Advanced Research
               </Button>
             </Space>
           </motion.div>

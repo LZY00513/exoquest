@@ -30,7 +30,7 @@ const LightCurveViewer: React.FC<LightCurveViewerProps> = ({
   importance,
   period,
   epoch,
-  title = '光变曲线查看器',
+  title = 'Light Curve Viewer',
   height = 400,
 }) => {
   const rawPlotRef = useRef<HTMLDivElement>(null);
@@ -58,7 +58,7 @@ const LightCurveViewer: React.FC<LightCurveViewerProps> = ({
     container: HTMLDivElement,
     data: LightCurveData,
     plotTitle: string,
-    xLabel: string = '时间 (天)',
+    xLabel: string = 'Time (Days)',
     showImportance: boolean = false
   ) => {
     const traces: any[] = [];
@@ -69,13 +69,13 @@ const LightCurveViewer: React.FC<LightCurveViewerProps> = ({
       y: data.flux,
       mode: 'markers',
       type: 'scatter',
-      name: '观测数据',
+      name: 'Observation Data',
       marker: {
         size: 3,
         color: showImportance && importance ? importance : '#1890ff',
         colorscale: showImportance ? 'Viridis' : undefined,
         showscale: showImportance,
-        colorbar: showImportance ? { title: '重要性' } : undefined,
+        colorbar: showImportance ? { title: 'Importance' } : undefined,
       },
       error_y: data.flux_err ? {
         type: 'data',
@@ -95,14 +95,14 @@ const LightCurveViewer: React.FC<LightCurveViewerProps> = ({
         y: data.flux,
         mode: 'markers',
         type: 'scatter',
-        name: '重要性热力图',
+        name: 'Importance Heatmap',
         marker: {
           size: normalizedImportance.map(val => 5 + val * 10),
           color: importance,
           colorscale: 'Reds',
           opacity: 0.6,
           showscale: true,
-          colorbar: { title: '特征重要性', x: 1.1 },
+          colorbar: { title: 'Feature Importance', x: 1.1 },
         },
       });
     }
@@ -110,7 +110,7 @@ const LightCurveViewer: React.FC<LightCurveViewerProps> = ({
     const layout = {
       title: plotTitle,
       xaxis: { title: xLabel },
-      yaxis: { title: '相对流量' },
+      yaxis: { title: 'Relative Flux' },
       hovermode: 'closest',
       showlegend: true,
       height: height,
@@ -133,14 +133,14 @@ const LightCurveViewer: React.FC<LightCurveViewerProps> = ({
   useEffect(() => {
     if (activeTab === 'raw' && rawPlotRef.current) {
       const data = rawData || sampleData;
-      createPlot(rawPlotRef.current, data, '原始光变曲线', '时间 (天)', false);
+      createPlot(rawPlotRef.current, data, 'Raw Light Curve', 'Time (Days)', false);
     }
   }, [activeTab, rawData]);
 
   useEffect(() => {
     if (activeTab === 'detrended' && detrendedPlotRef.current) {
       const data = detrendedData || sampleData;
-      createPlot(detrendedPlotRef.current, data, '去趋势光变曲线', '时间 (天)', true);
+      createPlot(detrendedPlotRef.current, data, 'Detrended Light Curve', 'Time (Days)', true);
     }
   }, [activeTab, detrendedData, importance]);
 
@@ -163,7 +163,7 @@ const LightCurveViewer: React.FC<LightCurveViewerProps> = ({
       }
       
       if (data) {
-        createPlot(phasePlotRef.current, data, '相位折叠光变曲线', '相位', false);
+        createPlot(phasePlotRef.current, data, 'Phase Folded Light Curve', 'Phase', false);
       }
     }
   }, [activeTab, phaseFoldedData, period, epoch, rawData]);
@@ -202,14 +202,14 @@ const LightCurveViewer: React.FC<LightCurveViewerProps> = ({
   const tabItems = [
     {
       key: 'raw',
-      label: '原始数据',
+      label: 'Raw Data',
       children: (
         <div>
           <div ref={rawPlotRef} className="plotly-container" />
           {!rawData && (
             <Alert
-              message="使用示例数据"
-              description="当前显示的是模拟的光变曲线数据，用于演示目的。"
+              message="Using sample data"
+              description="The light curve data displayed is simulated for demonstration purposes."
               type="info"
               showIcon
               style={{ marginTop: 8 }}
@@ -220,13 +220,13 @@ const LightCurveViewer: React.FC<LightCurveViewerProps> = ({
     },
     {
       key: 'detrended',
-      label: '去趋势',
+      label: 'Detrended Data',
       children: (
         <div>
           <div ref={detrendedPlotRef} className="plotly-container" />
           {importance && (
             <Alert
-              message="特征重要性覆盖"
+              message="Feature Importance Overlay"
               description="图中的颜色和大小表示每个数据点的特征重要性。"
               type="success"
               showIcon
@@ -238,14 +238,14 @@ const LightCurveViewer: React.FC<LightCurveViewerProps> = ({
     },
     {
       key: 'phase',
-      label: '相位折叠',
+      label: 'Phase Folded Data',
       children: (
         <div>
           <div ref={phasePlotRef} className="plotly-container" />
           {period && (
             <Space direction="vertical" style={{ marginTop: 8 }}>
-              <Text><strong>周期：</strong> {period.toFixed(4)} 天</Text>
-              {epoch && <Text><strong>历元：</strong> {epoch.toFixed(4)} 天</Text>}
+              <Text><strong>Period：</strong> {period.toFixed(4)} 天</Text>
+              {epoch && <Text><strong>Epoch：</strong> {epoch.toFixed(4)} 天</Text>}
             </Space>
           )}
         </div>
@@ -263,14 +263,14 @@ const LightCurveViewer: React.FC<LightCurveViewerProps> = ({
             onClick={handleDownload}
             size="small"
           >
-            下载
+            Download
           </Button>
           <Button 
             icon={<FullscreenOutlined />} 
             onClick={handleFullscreen}
             size="small"
           >
-            全屏
+            Fullscreen
           </Button>
         </Space>
       }
