@@ -924,6 +924,71 @@
   color: rgba(255, 255, 255, 0.6) !important;
 }
 
+/* Enhanced contrast for all text elements */
+.explore-page .ant-typography,
+.research-page .ant-typography {
+  color: #ffffff !important;
+}
+
+.explore-page .ant-typography-caption,
+.research-page .ant-typography-caption {
+  color: #e6f7ff !important;
+}
+
+.explore-page .ant-typography-secondary,
+.research-page .ant-typography-secondary {
+  color: #d9d9d9 !important;
+}
+
+/* Timeline and log text contrast */
+.explore-page .ant-timeline-item-content,
+.research-page .ant-timeline-item-content {
+  color: #ffffff !important;
+}
+
+.explore-page .ant-timeline-item-content .ant-typography,
+.research-page .ant-timeline-item-content .ant-typography {
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Progress and status text */
+.explore-page .ant-progress-text,
+.research-page .ant-progress-text {
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Tag text contrast */
+.explore-page .ant-tag,
+.research-page .ant-tag {
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Tooltip text contrast */
+.explore-page .ant-tooltip-inner,
+.research-page .ant-tooltip-inner {
+  color: #ffffff !important;
+  background: rgba(0, 0, 0, 0.85) !important;
+}
+
+/* Form label contrast */
+.explore-page .ant-form-item-label > label,
+.research-page .ant-form-item-label > label {
+  color: #ffffff !important;
+  font-weight: 500;
+}
+
+/* Divider text contrast */
+.explore-page .ant-divider-inner-text,
+.research-page .ant-divider-inner-text {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0 16px;
+  border-radius: 4px;
+}
+
 /*
   1. Optimized Cursor Animation Keyframes 
 */

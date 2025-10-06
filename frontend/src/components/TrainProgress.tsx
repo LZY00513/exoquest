@@ -27,7 +27,7 @@ const TrainProgress: React.FC<TrainProgressProps> = ({
   onJobFailed,
   autoRefresh = true,
   refreshInterval = 2000,
-  title = '训练进度监控',
+  title = 'Training Progress Monitoring',
 }) => {
   const [job, setJob] = useState<TrainingJob | null>(null);
   const [loading, setLoading] = useState(false);
@@ -50,14 +50,14 @@ const TrainProgress: React.FC<TrainProgressProps> = ({
       // 生成日志（内联函数避免依赖项问题）
       const generateLogs = (progress: number): LogEntry[] => {
         const mockLogs: LogEntry[] = [
-          { timestamp: new Date().toISOString(), level: 'info', message: '开始训练任务...' },
+          { timestamp: new Date().toISOString(), level: 'info', message: 'Start training task...' },
         ];
 
         if (progress > 10) {
           mockLogs.push({ 
             timestamp: new Date(Date.now() - 8000).toISOString(), 
             level: 'info', 
-            message: '数据预处理完成，开始模型训练' 
+            message: 'Data preprocessing completed, starting model training...' 
           });
         }
 
@@ -81,7 +81,7 @@ const TrainProgress: React.FC<TrainProgressProps> = ({
           mockLogs.push({ 
             timestamp: new Date(Date.now() - 2000).toISOString(), 
             level: 'warning', 
-            message: '检测到轻微过拟合，应用早停策略' 
+            message: 'Early stopping triggered' 
           });
         }
 
@@ -89,7 +89,7 @@ const TrainProgress: React.FC<TrainProgressProps> = ({
           mockLogs.push({ 
             timestamp: new Date().toISOString(), 
             level: 'info', 
-            message: '训练完成！正在保存模型...' 
+            message: 'Training completed! Saving model...' 
           });
         }
 
@@ -106,11 +106,11 @@ const TrainProgress: React.FC<TrainProgressProps> = ({
         onJobComplete?.(jobId);
       } else if (jobStatus.status === 'failed') {
         setIsPolling(false);
-        onJobFailed?.(jobId, jobStatus.message || '训练失败');
+        onJobFailed?.(jobId, jobStatus.message || 'Training failed');
       }
 
     } catch (err) {
-      setError(err instanceof Error ? err.message : '获取训练状态失败');
+      setError(err instanceof Error ? err.message : 'Failed to get training status');
       setIsPolling(false);
     } finally {
       setLoading(false);
@@ -160,11 +160,11 @@ const TrainProgress: React.FC<TrainProgressProps> = ({
 
   const getStatusText = (status: string) => {
     switch (status) {
-      case 'pending': return '等待中';
-      case 'running': return '运行中';
-      case 'completed': return '已完成';
-      case 'failed': return '失败';
-      default: return '未知';
+      case 'pending': return 'Waiting';
+      case 'running': return 'Running';
+      case 'completed': return 'Completed';
+      case 'failed': return 'Failed';
+      default: return 'Unknown';
     }
   };
 
@@ -181,8 +181,8 @@ const TrainProgress: React.FC<TrainProgressProps> = ({
     return (
       <Card title={title} className="progress-tracker">
         <Alert
-          message="无训练任务"
-          description="请先启动一个训练任务以查看进度。"
+          message="No training task"
+          description="Please start a training task to view progress."
           type="info"
           showIcon
         />
@@ -202,7 +202,7 @@ const TrainProgress: React.FC<TrainProgressProps> = ({
               size="small"
               disabled={!isPolling}
             >
-              暂停监控
+              Pause monitoring
             </Button>
           ) : (
             <Button 
@@ -211,7 +211,7 @@ const TrainProgress: React.FC<TrainProgressProps> = ({
               size="small"
               disabled={isPolling}
             >
-              开始监控
+              Start monitoring
             </Button>
           )}
           <Button 
@@ -220,7 +220,7 @@ const TrainProgress: React.FC<TrainProgressProps> = ({
             size="small"
             loading={loading}
           >
-            刷新
+            Refresh
           </Button>
         </Space>
       }
@@ -243,7 +243,7 @@ const TrainProgress: React.FC<TrainProgressProps> = ({
             {/* 基本信息 */}
             <div>
               <Space>
-                <Text strong>任务ID:</Text>
+                <Text strong>Task ID:</Text>
                 <Text code>{job.job_id}</Text>
                 <Tag color={getStatusColor(job.status)}>
                   {getStatusText(job.status)}
@@ -253,7 +253,7 @@ const TrainProgress: React.FC<TrainProgressProps> = ({
 
             {/* 进度条 */}
             <div>
-              <Title level={5}>训练进度</Title>
+              <Title level={5}>Training Progress</Title>
               <Progress
                 percent={job.progress}
                 status={job.status === 'failed' ? 'exception' : 
@@ -264,11 +264,11 @@ const TrainProgress: React.FC<TrainProgressProps> = ({
               />
               <div style={{ marginTop: 8 }}>
                 <Text type="secondary">
-                  开始时间: {job.started_at ? new Date(job.started_at).toLocaleString('zh-CN') : '未开始'}
+                  Start time: {job.started_at ? new Date(job.started_at).toLocaleString('zh-CN') : 'Not started'}
                 </Text>
                 <br />
                 <Text type="secondary">
-                  完成时间: {job.completed_at ? new Date(job.completed_at).toLocaleString('zh-CN') : '进行中'}
+                  Completion time: {job.completed_at ? new Date(job.completed_at).toLocaleString('zh-CN') : 'In progress'}
                 </Text>
               </div>
             </div>
@@ -285,13 +285,16 @@ const TrainProgress: React.FC<TrainProgressProps> = ({
 
             {/* 训练日志 */}
             <div>
-              <Title level={5}>训练日志</Title>
+              <Title level={5}>Training Log</Title>
               <div style={{ 
                 maxHeight: '300px', 
                 overflow: 'auto', 
-                background: '#f5f5f5', 
+                background: 'rgba(255, 255, 255, 0.12)', 
+                border: '1px solid rgba(255, 255, 255, 0.25)',
                 padding: '12px', 
-                borderRadius: '6px' 
+                borderRadius: '6px',
+                backdropFilter: 'blur(10px)',
+                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3)'
               }}>
                 <Timeline
                   items={logs.map((log, index) => ({
@@ -302,11 +305,16 @@ const TrainProgress: React.FC<TrainProgressProps> = ({
                           <Tag color={getLogLevelColor(log.level)}>
                             {log.level.toUpperCase()}
                           </Tag>
-                          <Text style={{ fontSize: '12px' }} type="secondary">
+                          <Text style={{ fontSize: '12px', color: '#e6f7ff' }}>
                             {new Date(log.timestamp).toLocaleTimeString('zh-CN')}
                           </Text>
                         </Space>
-                        <Paragraph style={{ margin: '4px 0 0 0', fontSize: '13px' }}>
+                        <Paragraph style={{ 
+                          margin: '4px 0 0 0', 
+                          fontSize: '13px',
+                          color: '#ffffff',
+                          textShadow: '0 1px 2px rgba(0, 0, 0, 0.5)'
+                        }}>
                           {log.message}
                         </Paragraph>
                       </div>
@@ -319,19 +327,19 @@ const TrainProgress: React.FC<TrainProgressProps> = ({
             {/* 训练指标 */}
             {job.metrics && (
               <div>
-                <Title level={5}>训练指标</Title>
+                <Title level={5}>Training Metrics</Title>
                 <Space wrap>
                   {job.metrics.accuracy && (
-                    <Tag color="blue">准确率: {(job.metrics.accuracy * 100).toFixed(1)}%</Tag>
+                    <Tag color="blue">Accuracy: {(job.metrics.accuracy * 100).toFixed(1)}%</Tag>
                   )}
                   {job.metrics.precision && (
-                    <Tag color="green">精确率: {(job.metrics.precision * 100).toFixed(1)}%</Tag>
+                    <Tag color="green">Precision: {(job.metrics.precision * 100).toFixed(1)}%</Tag>
                   )}
                   {job.metrics.recall && (
-                    <Tag color="orange">召回率: {(job.metrics.recall * 100).toFixed(1)}%</Tag>
+                    <Tag color="orange">Recall: {(job.metrics.recall * 100).toFixed(1)}%</Tag>
                   )}
                   {job.metrics.f1_score && (
-                    <Tag color="purple">F1分数: {(job.metrics.f1_score * 100).toFixed(1)}%</Tag>
+                    <Tag color="purple">F1 Score: {(job.metrics.f1_score * 100).toFixed(1)}%</Tag>
                   )}
                 </Space>
               </div>
@@ -340,13 +348,13 @@ const TrainProgress: React.FC<TrainProgressProps> = ({
             {/* 预计完成时间 */}
             {job.status === 'running' && job.progress > 0 && job.started_at && (
               <Alert
-                message="预计完成时间"
+                message="Estimated completion time"
                 description={
                   (() => {
                     const elapsed = Date.now() - new Date(job.started_at!).getTime();
                     const estimated = (elapsed / job.progress) * (100 - job.progress);
                     const finishTime = new Date(Date.now() + estimated);
-                    return `大约 ${Math.ceil(estimated / 60000)} 分钟后完成 (${finishTime.toLocaleTimeString('zh-CN')})`;
+                    return `Estimated completion time: ${Math.ceil(estimated / 60000)} minutes (${finishTime.toLocaleTimeString('zh-CN')})`;
                   })()
                 }
                 type="info"
