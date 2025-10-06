@@ -1,169 +1,185 @@
 
+# ExoQuest Platform
 
-# 🌌 **ExoQuest Platform**
-
-### *AI-powered Exoplanet Detection and Research Platform for NASA Space Apps Challenge 2025*
-
-<div align="center">
-
-[![NASA Space Apps Challenge 2025](https://img.shields.io/badge/NASA-Space%20Apps%20Challenge%202025-blue?style=for-the-badge\&logo=nasa)](https://www.spaceappschallenge.org/)
-[![License](https://img.shields.io/badge/license-Apache%202.0-green?style=for-the-badge)](LICENSE)
-[![Python](https://img.shields.io/badge/Python-3.11+-blue?style=for-the-badge\&logo=python)](https://python.org)
-[![React](https://img.shields.io/badge/React-19+-blue?style=for-the-badge\&logo=react)](https://reactjs.org)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-green?style=for-the-badge\&logo=fastapi)](https://fastapi.tiangolo.com)
-
-</div>
+*A machine learning–based platform for exoplanet detection and analysis*
+*Developed for NASA Space Apps Challenge 2025*
 
 ---
 
-## 🪐 Overview
+## Project Overview
 
-> **From Light Curves to New Worlds — ExoQuest turns raw starlight into planetary discovery.**
+**ExoQuest Platform** is an integrated system for exoplanet detection and analysis.
+It combines data from NASA’s **Kepler**, **K2**, and **TESS** missions with machine learning and modern visualization tools to support both scientific research and public engagement.
 
-**ExoQuest Platform** is an end-to-end AI system for **exoplanet detection and research**, developed for **NASA Space Apps Challenge 2025**.
-It combines **machine learning**, **interactive visualization**, and **research-ready tools** — making exoplanet discovery more **accessible, interpretable, and inspiring** for both researchers and students.
-
-✨ *Built with FastAPI + React + Catboost, powered by data from NASA’s Kepler and TESS missions.*
-
----
-
-## 🚀 Core Features
-
-| Mode                   | Description                                                                          | Highlight                                  |
-| ---------------------- | ------------------------------------------------------------------------------------ | ------------------------------------------ |
-| 🔭 **Explore Mode**    | Step-by-step workflow for exoplanet detection — perfect for education & outreach.    | Upload → Visualize → Detect → Interpret    |
-| 🧠 **Research Mode**   | Professional tools for large-scale analysis, threshold tuning, and model retraining. | Batch processing, CSV/PDF export           |
-| 📊 **Explainability**  | Real-time **SHAP** interpretation of model predictions.                              | Confidence, calibration, feature impact    |
-| 🛰️ **AI Integration** | Ensemble of Catboost and CatBoost models for robust prediction.                      | Supports both tabular and light curve data |
-| ⚙️ **Infrastructure**  | Fully Dockerized — one-click deploy with integrated FastAPI + Redis + MinIO.         | Production-ready architecture              |
+The platform enables users to upload, visualize, and classify light-curve or tabular data, view interpretability results, and export reproducible analyses.
+Its dual-mode design—**Explore Mode** and **Research Mode**—caters to both learners and professional researchers.
 
 ---
 
-## 🌌 Interface Highlights
+## Platform Highlights
 
-| Explore Mode                             | Research Mode                              | Feature Explanation                   |
-| ---------------------------------------- | ------------------------------------------ | ------------------------------------- |
-| ![Explore](docs/screenshots/explore.png) | ![Research](docs/screenshots/research.png) | ![Explain](docs/screenshots/shap.png) |
-
-**Explore Mode** guides users through the full process — from uploading Kepler light curves to interpreting detected exoplanets.
-**Research Mode** supports advanced workflows like threshold optimization and model evaluation.
-**Feature Analysis** provides SHAP-based insights into feature importance and model confidence.
-
----
-
-## 🧩 Technical Architecture
-
-```text
-Frontend (React + TypeScript + Plotly.js)
-        │
-        ▼
-Backend (FastAPI + Pydantic + AsyncIO)
-        │
-        ▼
-AI Models (Catboost / CatBoost / Scikit-learn)
-        │
-        ▼
-Infrastructure (Redis, MinIO, Docker Compose)
-```
-
-**Key technologies:**
-React 19 • Ant Design 5 • Plotly.js • FastAPI • Catboost • SHAP • Redis • MinIO • Docker
+* Automated detection of planetary transits using supervised learning models
+* Interactive visualization of light-curve and feature data
+* Explainable results with feature-importance analysis
+* Support for multi-mission datasets (Kepler, K2, TESS)
+* Batch analysis and configurable decision thresholds
+* Web-based, containerized architecture for reproducible deployment
 
 ---
 
-## ⚡ Quick Start
+## Interface Previews
 
-```bash
-# Clone the project
-git clone https://github.com/LZY00513/exoquest.git
-cd exoquest
+### Landing Page
 
-# Start with Docker
-chmod +x start.sh
-./start.sh
-```
+*Interactive entry point introducing platform modes and research highlights.*
+<img width="2048" height="1105" alt="image" src="https://github.com/user-attachments/assets/2e0dd606-d975-43bb-b563-d144b3a5fc02" />
 
-Then open:
 
-* 🌐 Frontend: `http://localhost:5173`
-* 🧠 API Docs: `http://localhost:8000/docs`
+### Explore Mode
+
+*A guided workflow to upload data, visualize transits, run detection, and interpret predictions.*
+<img width="1972" height="1084" alt="image" src="https://github.com/user-attachments/assets/81fb6376-0ea6-4638-8cad-893e450067b8" />
+
+
+### Research Mode
+
+*Batch processing and evaluation interface for large datasets and model performance tuning.*
+<img width="1225" height="1090" alt="image" src="https://github.com/user-attachments/assets/159787fb-76c0-43fb-8071-a5cc567d3a37" />
+
+
+### Single Detection View
+
+*Detailed prediction interface with per-target confidence, probability distribution, and feature explanations.*
+<img width="1306" height="1079" alt="image" src="https://github.com/user-attachments/assets/9fab7c37-c9b7-4340-94cb-e815418abd77" />
+
+
+### About Page  
+The main landing interface introducing ExoQuest’s purpose and system modes, providing users with quick access to *Explore Mode*, *Research Mode*, and general platform information.  
+<img width="2048" height="1056" alt="image" src="https://github.com/user-attachments/assets/9351b468-9559-496a-856d-8070e7e511c7" />
+
 
 ---
 
-## 🧠 Model Overview
+## Core Features
 
-* **Input:** Tabular or light curve data (Kepler/TESS format)
-* **Model:** Catboost (optimized with Bayesian tuning)
-* **Output:**
+| Category                  | Capability                                                              |
+| ------------------------- | ----------------------------------------------------------------------- |
+| **Detection**             | Identification of exoplanet candidates from light-curve or tabular data |
+| **Visualization**         | Phase-folded curve and statistical feature plots                        |
+| **Batch Analysis**        | Parallel processing and CSV export                                      |
+| **Model Interpretation**  | SHAP-based feature attribution and confidence analysis                  |
+| **Retraining (Optional)** | User-initiated fine-tuning and threshold calibration                    |
+| **Security**              | Data processed locally or within Docker containers                      |
 
-  * Confirmed Exoplanet Probability
-  * Candidate Probability
-  * False Positive Probability
-  * SHAP-based Feature Attribution
+
+
+## Technical Architecture
+
+| Layer | Components |
+|--------|-------------|
+| 🟦 **Frontend** | React 19 · TypeScript · Ant Design · Plotly.js |
+| 🟩 **Backend** | FastAPI · Python 3.11+ · Pydantic · AsyncIO |
+| 🟨 **Machine Learning** | CatBoost · Scikit-learn · SHAP |
+| 🟪 **Storage & Messaging** | MinIO · Redis |
+| 🟥 **Deployment** | Docker Compose (one-click start) |
+
+
 
 ---
 
-## 🧪 Example Data
+## Dataset Support
 
-**Kepler-452b (sample data)**
+* **Kepler** (main mission, 2009–2018)
+* **K2** (extended mission with ecliptic fields)
+* **TESS** (Transiting Exoplanet Survey Satellite, 2018–present)
+* Ground-based observation networks
+* User-provided datasets
+
+**Accepted formats:** `.csv`, `.json`, `.fits`, `.txt`
+
+---
+
+## Model Overview
+
+* **Task:** Multi-class classification — *Confirmed Planet*, *Candidate Planet*, *False Positive*
+* **Model:** CatBoost (tree-based gradient boosting)
+* **Input Features:** orbital period, duration, depth, SNR, temperature, gravity, magnitude, crowding, etc.
+* **Outputs:** Class probabilities, confidence score, SHAP feature explanations
+
+**Example Input**
 
 ```csv
 target_name,period,duration_hr,depth_ppm,snr,teff,logg,tmag,crowding
 Kepler-452b,384.843,10.1,515.0,12.3,5757,4.32,13.426,0.98
 ```
 
-**Result Example**
+**Example Output**
 
 | Confirmed | Candidate | False Positive | Confidence |
 | --------- | --------- | -------------- | ---------- |
-| 34.8%     | 34.8%     | 0.0%           | 69.6%      |
+| 0.35      | 0.35      | 0.00           | 0.70       |
 
 ---
 
-## 🧭 Vision & Impact
+## Workflow Summary
 
-> 🛰️ *Making exoplanet discovery accessible for everyone — from classrooms to research labs.*
-
-ExoQuest bridges the gap between **education and scientific research**, helping students understand astrophysical data, and enabling researchers to rapidly prototype detection algorithms.
-By integrating explainable AI, it enhances **transparency and trust** in automated exoplanet identification.
+1. Upload or select sample data
+2. Preprocess and validate features
+3. Run model inference
+4. View classification probabilities and SHAP explanations
+5. Adjust thresholds or retrain (optional)
+6. Export metrics and results
 
 ---
 
-## 🧱 Repository Structure
+## Quick Start
 
 ```bash
-exoquest/
-├── frontend/     # React + Ant Design UI
-├── api/          # FastAPI backend and ML integration
-├── infra/        # Docker Compose & environment configs
-└── start.sh      # One-click startup script
+git clone https://github.com/LZY00513/exoquest.git
+cd exoquest
+
+chmod +x start.sh
+./start.sh
 ```
 
----
+Access locally:
 
-## 👩‍💻 Team & Acknowledgment
-
-Developed by **Team ExoQuest** for NASA Space Apps Challenge 2025.
-Thanks to NASA, Kepler, and open-source communities for providing public datasets and tools.
+* Frontend: `http://localhost:5173`
+* API Docs: `http://localhost:8000/docs`
 
 ---
 
-## 📜 License
+## Evaluation Metrics
 
-Released under **Apache 2.0 License**.
-See [LICENSE](LICENSE) for details.
-
----
-
-<div align="center">
-
-**🌠 ExoQuest Platform — Explore the Universe with AI.**
-
-*Made with ❤️ for NASA Space Apps Challenge 2025.*
-
-</div>
+* Accuracy, Precision, Recall, F1
+* ROC / PR curves
+* Confusion matrix and calibration plots
+* Versioned result tracking and export
 
 ---
 
-是否希望我再帮你生成一个更短版本（比如 README 精简展示版，150 行以内，专门用于评委浏览移动端 GitHub）？
-那种更适合评审快速理解项目亮点。
+## Data and Ethical Notice
+
+All data used are publicly available through NASA archives (Kepler, K2, TESS).
+Results generated by ExoQuest are for research and educational purposes only.
+NASA does not endorse or sponsor this project; it is an independent open-source initiative.
+
+---
+
+## Open Source
+
+Contributions are welcome through pull requests and discussions on GitHub.
+You can find source code, documentation, and issue tracking at:
+[https://github.com/LZY00513/exoquest](https://github.com/LZY00513/exoquest)
+
+---
+
+## License
+
+Released under the **Apache 2.0 License**.
+See the [LICENSE](LICENSE) file for details.
+
+---
+
+**ExoQuest Platform** – Exploring exoplanetary systems through open, interpretable data science.
+
