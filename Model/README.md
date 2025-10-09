@@ -132,4 +132,4 @@ model = keras.Sequential([
 
 ##  Evaluation Metrics
 
-![[Pasted image 20251009181559.png]]![[Pasted image 20251009181613.png]]
+![[assets/Pasted image 20251009181559.png]]![[assets/Pasted image 20251009181613.png]]
